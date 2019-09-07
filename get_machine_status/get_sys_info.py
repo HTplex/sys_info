@@ -4,6 +4,14 @@ import platform
 import json
 import requests
 from pynvml import *
+import socket
+
+def get_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    ip = s.getsockname()[0]
+    s.close()
+    return ip
 
 def byte2str(n, d = 2):
     s = 'B'
@@ -85,6 +93,7 @@ def get_sys_info():
                    }
                ]
               }
+    sys_dic['name']=get_ip()
     sys_dic['timestamp']=time.time()
     sys_dic['cpu_total']=psutil.cpu_percent(interval=.5, percpu=False)
     sys_dic['cpu_per_core']=psutil.cpu_percent(interval=.5, percpu=True)
