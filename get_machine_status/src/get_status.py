@@ -1,6 +1,4 @@
 import datetime
-import requests
-import json
 
 ip_str = {
     '10.229.0.4':'KAIJU',
@@ -73,10 +71,10 @@ def get_machine_info(print_result = True):
     return_s = ""
     for i in ip_str:
         if i in info_dict:
+            if print_result:
+                print(get_status_string(info_dict[i]))
             return_s+=get_status_string(info_dict[i])
 #             return_s+="\n"
-    if print_result:
-        print(return_s)
     return return_s
             
 get_machine_info()
